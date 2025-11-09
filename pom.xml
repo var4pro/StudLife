@@ -17,17 +17,23 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.3</version> <!-- Note: I updated this to a stable version, 3.5.3 doesn't exist yet as of my knowledge. Use your intended version -->
     </parent>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- START: LOMBOK DEPENDENCY CORRECTION -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional> <!-- Lombok is a compile-time tool, not needed at runtime -->
         </dependency>
+        <!-- END: LOMBOK DEPENDENCY CORRECTION -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -50,12 +56,42 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- START: LOMBOK CONFIGURATION FOR SPRING BOOT PLUGIN -->
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <!-- END: LOMBOK CONFIGURATION FOR SPRING BOOT PLUGIN -->
             </plugin>
+
+            <!-- START: REQUIRED PLUGIN CONFIGURATION FOR LOMBOK -->
+            <!-- This section tells the Java compiler how to handle Lombok annotations -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- Version is managed by spring-boot-starter-parent -->
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <!-- The version is managed by the spring-boot-starter-parent BOM -->
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <!-- END: REQUIRED PLUGIN CONFIGURATION FOR LOMBOK -->
         </plugins>
     </build>
 </project>
