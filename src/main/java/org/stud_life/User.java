@@ -15,9 +15,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "student")
+@Setter
+@Getter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq_gen")
@@ -48,4 +52,7 @@ public class User {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TaskStudentState> taskStates = new HashSet<>();
+
+    public User() {
+    }
 }

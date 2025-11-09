@@ -9,17 +9,20 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size; // Для валидации размера строки, если используете
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "student_group") // Имя таблицы для группы
+@Table(name = "group") // Имя таблицы для группы
+@Setter
+@Getter
 public class Group {
     @Id // Используем String id как первичный ключ
     @Column(name = "id", length = 9, nullable = false, unique = true) // Ограничиваем длину 9 символами
     @Size(min = 9, max = 9, message = "Group ID must be exactly 9 characters long") // Пример валидации
     private String id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "group_id") // Ссылка на group_id в таблице Task
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true) // <-- ПОЧИНЕНО
     private List<Task> groupTasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,6 +31,7 @@ public class Group {
     public Group(String id) {
         this.id = id;
     }
+    public Group() {}
 
     public void addStudent(User student) {
         this.students.add(student);
