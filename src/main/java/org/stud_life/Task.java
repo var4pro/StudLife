@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,4 +46,11 @@ public class Task{
     private Group group;
 
     public Task(){}
+    public Task(TaskType taskType, byte cost, String description, LocalDateTime deadline, Group group) {
+        this.taskType = taskType;
+        this.cost = cost;
+        this.description = description;
+        this.deadline = deadline;
+        this.group = group;
+    }
 }
