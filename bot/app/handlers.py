@@ -129,3 +129,12 @@ async def logout(message: Message):
         await message.answer("Вы успешно вышли из аккаунта.", reply_markup=kb.main)
     else:
         await message.answer("Вы не вошли в аккаунт.", reply_markup=kb.main)
+
+@router.message(F.text == 'О нас')
+async def about_us(message: Message):
+    await message.answer('Проект разработали "Error404"\n' \
+                        '- команда независимых рзработчиков из МГТУ "Станкин"\n'\
+                        'Попов Миша(@var4pro)\n' \
+                        'Пирогов Вадим(@vadimpirozhok)\n' \
+                        'Балдин Игорь(@HisQuiss)\n' \
+                        'Горшков Александр(@Ytkagus1)')
