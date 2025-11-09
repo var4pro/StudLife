@@ -53,6 +53,14 @@ public class User {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TaskStudentState> taskStates = new HashSet<>();
 
+    @NotBlank
+    @Column(name = "login", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
+    private String login;
+
+    @NotBlank
+    @Column(name = "password", columnDefinition = "VARCHAR(100)", nullable = false)
+    private String password;
+
     public User() {
     }
 }

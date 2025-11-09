@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "group") // Имя таблицы для группы
+@Table(name = "groups") // Имя таблицы для группы
 @Setter
 @Getter
 public class Group {
